@@ -16,18 +16,14 @@ class TaskController extends Controller
     }
 
     public function store(Request $request){
-        try {
-            $createdTask = Task::create([
-                "title" => $request->title,
-                "description" => $request->description,
-                "priority" => $request->priority,
-            ]);
-    
-            return response()->json($createdTask, 200);
-        }
-        catch (Exception $e) {
-            return response()->json("Error", 400);
-        }
+        $validatedReq = $request->validate([
+            "title" => "required|string|max:255",
+            "description" => "nullable|string",
+            "priority" => "required|integer|min:1"
+        ]);
+
+        $createdTask = Task::create($validatedReq);
+        return response()->json($createdTask, 201);
     }
 
     public function getById(int $id){
@@ -47,7 +43,12 @@ class TaskController extends Controller
                 return response()->json("Not Found",404);
             }
 
-            $task->update($request->all());
+            $validated = $request->validate([
+                "title" => "sometimes|required|string|max:255",
+                "description" => "sometimes|nullable|string",
+                "priority" => "sometimes|required|integer|min:1"
+            ]);
+            $task->update($validated);
             return response()->json($task, 200);
         }
         catch (Exception $e) {
