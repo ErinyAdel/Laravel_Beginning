@@ -17,14 +17,13 @@ Route::get('welcome', function ()
 });
 
 Route::get('welcome2', [WelcomeController::class, 'welcomeApi']);
-
 Route::get('callIndex', action: [WelcomeController::class, 'index']);
-
 Route::get('getUser1/{id}', action: [WelcomeController::class, 'GetUser1']);
 Route::get('getUser2/{id}', action: [WelcomeController::class, 'GetUser2']);
 
-Route::post('createTask', [TaskController::class, 'store']);
-Route::get('getTasks', action: [TaskController::class, 'index']);
-Route::get('getTask/{id}', action: [TaskController::class, 'getById']);
-Route::put('updateTask/{id}', action: [TaskController::class, 'update']);
-Route::delete('deleteTask/{id}', action: [TaskController::class, 'delete']);
+// Route::post('createTask', [TaskController::class, 'store']);
+// Route::get('getTasks', action: [TaskController::class, 'index']);
+// Route::get('getTask/{id}', action: [TaskController::class, 'getById']);
+// Route::put('updateTask/{id}', action: [TaskController::class, 'update']);
+// Route::delete('deleteTask/{id}', action: [TaskController::class, 'delete']);
+Route::apiResource("tasks", TaskController::class);
