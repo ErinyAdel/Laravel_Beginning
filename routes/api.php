@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ProfileController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,4 +27,7 @@ Route::get('getUser2/{id}', action: [WelcomeController::class, 'GetUser2']);
 // Route::get('getTask/{id}', action: [TaskController::class, 'getById']);
 // Route::put('updateTask/{id}', action: [TaskController::class, 'update']);
 // Route::delete('deleteTask/{id}', action: [TaskController::class, 'delete']);
-Route::apiResource("tasks", TaskController::class);
+Route::apiResource("tasks", TaskController::class); 
+
+Route::post('createProfile', [ProfileController::class, 'store']);
+Route::get('getProfile/{id}', [ProfileController::class, 'show']);
